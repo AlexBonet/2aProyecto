@@ -60,6 +60,7 @@ public class Celda {
     public enum ColorCelda{
         WHITE_Cell(Attribute.BACK_COLOR(180,180,180)),
         BLACK_Cell(Attribute.BACK_COLOR(100,100,100)),
+        BLACK(Attribute.BACK_COLOR(0,0,0)),
 
 //        WHITE_Cell(Attribute.BACK_COLOR(169,175,148)),
 //        BLACK_Cell(Attribute.BACK_COLOR(100,111,80)),

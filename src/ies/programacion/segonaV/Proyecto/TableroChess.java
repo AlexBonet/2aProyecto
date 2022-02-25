@@ -4,6 +4,7 @@ import ies.programacion.segonaV.Proyecto.DynamicStruct.IDeletePieceManager;
 import ies.programacion.segonaV.Proyecto.DynamicStruct.MyLinkedStore;
 import ies.programacion.segonaV.Proyecto.DynamicStruct.MyList;
 import ies.programacion.segonaV.Proyecto.PiezasB.*;
+import ies.programacion.segonaV.Proyecto.PiezasM.MKing;
 import ies.programacion.segonaV.Proyecto.PiezasW.*;
 
 import java.util.*;
@@ -147,7 +148,22 @@ public class TableroChess {
         else
             getCellAt(c).setColor(Celda.ColorCelda.HIGHLIGHT_SELECT_WHITE);
     }
-    public void hightLightEnJaque(){}
+
+    /**
+     * idea de que pinte de color la celda del rey cuando esté en jaque
+     */
+    public void hightLightEnJaque(){
+        List<Celda> list=new LinkedList<>(celdas.values());
+        Iterator<Celda> iterator = list.listIterator();
+        while (iterator.hasNext()){
+            if(iterator.next().getPieza().getChessType()==ChessType.W_king)
+                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
+        }
+        while (iterator.hasNext()){
+            if(iterator.next().getPieza().getChessType()==ChessType.B_king)
+                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
+        }
+    }
 
     public void resetColorBoard(){
         for (Celda celda:celdas.values())

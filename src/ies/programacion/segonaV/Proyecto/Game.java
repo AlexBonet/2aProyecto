@@ -12,7 +12,7 @@ import java.util.Scanner;
 /**
  * @author Alex Bonet
  * TODO JAQUE, no muestra mensaje de jaque (podria pintar de color la celda de algo)
- * TODO mensajes de final
+ * TODO mensajes de final: fica al reves qui guaña
  * TODO mirar de posar opcions de guardar y cargar partida
  * TODO Que si la pesa soles te un moviment que el faxa nomes elegirla
  */
@@ -355,7 +355,6 @@ public class Game {
                 System.out.println("              ¡¡JAQUE!!             ");
                 System.out.println(" +   El rey negro está en apuros  + ");
                 System.out.println("-----------------------------------");
-
             }
 
 

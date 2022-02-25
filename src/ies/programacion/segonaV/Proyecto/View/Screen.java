@@ -103,15 +103,16 @@ public class Screen {
         String msg="";
         if (g.hayReyBlanco() && !g.hayReyNegro())
             msg+=colorize( g.getTurno() + " ha GANADO",
-                    Celda.ColorCelda.WHITE_Cell.getAttribute(),
-                    Attribute.TEXT_COLOR(0,0,0));
+                    Celda.ColorCelda.BLACK.getAttribute(),
+                    Attribute.TEXT_COLOR(255,255,255));
+
         else if (g.hayReyNegro() && !g.hayReyBlanco())
             msg+=colorize( g.getTurno() + " ha GANADO",
-                    Celda.ColorCelda.BLACK_Cell.getAttribute(),
-                    Attribute.TEXT_COLOR(255,255,255));
+                    Celda.ColorCelda.WHITE_Cell.getAttribute(),
+                    Attribute.TEXT_COLOR(0,0,0));
         else
-            msg+=colorize("Ha habido un error",
-                    Celda.ColorCelda.HIGHLIGHT_KILL_WHITE.getAttribute(),
+            msg+=colorize("  FIN DE LA PARTIDA: ALGUN JUGADOR HA AVANDONADO  ",
+                    Celda.ColorCelda.HIGHLIGHT_King_JAQUE.getAttribute(),
                     Attribute.TEXT_COLOR(0,0,0));
 
         return msg;
