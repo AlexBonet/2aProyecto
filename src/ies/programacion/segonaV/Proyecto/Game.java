@@ -1,9 +1,6 @@
 package ies.programacion.segonaV.Proyecto;
 
-import ies.programacion.segonaV.Proyecto.DynamicStruct.IDeletePieceManager;
 import ies.programacion.segonaV.Proyecto.DynamicStruct.MoveList;
-import ies.programacion.segonaV.Proyecto.DynamicStruct.MyLinkedStore;
-import ies.programacion.segonaV.Proyecto.PiezasB.BKing;
 import ies.programacion.segonaV.Proyecto.View.Screen;
 
 import java.io.*;
@@ -15,6 +12,7 @@ import java.util.Scanner;
 /**
  * @author Alex Bonet
  * TODO JAQUE, no muestra mensaje de jaque (podria pintar de color la celda de algo)
+ * TODO mensajes de final
  * TODO mirar de posar opcions de guardar y cargar partida
  * TODO Que si la pesa soles te un moviment que el faxa nomes elegirla
  */
@@ -34,20 +32,22 @@ public class Game {
      */
     public Game() {
         this.board = new TableroChess();
-        historialDeMov=new MoveList();
-        turno=ColorPieza.WHITE;
+        historialDeMov = new MoveList();
+        turno = ColorPieza.WHITE;
     }
 
-    public void start(){
-        whitePlayer=askName(turno);
-        blackPlayer=askName(turno.next());
+    public void start() {
+        whitePlayer = askName(turno);
+        blackPlayer = askName(turno.next());
         Screen.show(board);
-        boolean salir=false;//no salir
+        boolean salir = false;//no salir
 
         do {
-            salir=cadaRonda();
+            salir = cadaRonda();
 
-        }while (!salir);
+        } while (!salir);
+
+        System.out.println(Screen.mensageFinal(this));;
 
         System.out.println("GG");
 
@@ -55,109 +55,108 @@ public class Game {
 
     /**
      * Pregunta por el nombre de los jugadores
+     *
      * @param turno quien tiene que poner el nombre
      * @return el nombre
      */
-    public String askName(ColorPieza turno){
-        Scanner sc=new Scanner(System.in);
+    public String askName(ColorPieza turno) {
+        Scanner sc = new Scanner(System.in);
         System.out.print("Escriba el nombre para el jugador de las piezas " + turno + " :");
-        String name=sc.next();
+        String name = sc.next();
         return name;
     }
 
     /**
      * Elige la coordenada de la pieza que quiere mover
      */
-    public void eligeCoordena(ColorPieza turno){
+    public void eligeCoordena(ColorPieza turno) {
         Coordenada c;   //Coordenada a la que nos vamos a mover
         char y;         //Letra de la coordenada
         int x;          //Numero de la coordenada
-        boolean vacia=false;  //
-        List<Coordenada> nextMove=new LinkedList<>(); // Posibles siguientes movientos de la pieza
+        boolean vacia = false;  //
+        List<Coordenada> nextMove = new LinkedList<>(); // Posibles siguientes movientos de la pieza
         do {
             System.out.println(getTurno() + ". Seleccione una coordenada: ");   //Mensage de texto
             tableros(); //metodo que muestra el tablero
 
-            y=eligeLetraY();    //Elegir la letra de la coordenada
-            x=eligeNumX();      //Elegir el numero de la coordenada
-            c=new Coordenada(y,x);  //Inicializa la coordenada con los valores pasados anteriormente
+            y = eligeLetraY();    //Elegir la letra de la coordenada
+            x = eligeNumX();      //Elegir el numero de la coordenada
+            c = new Coordenada(y, x);  //Inicializa la coordenada con los valores pasados anteriormente
 
             if (board.getCellAt(c).getPieza() == null) {  //Comprueba que no este vacia la celda
                 System.out.println(mError() + "Esta celda está vacia, elija otra.");
-                vacia= true;
-            }
-
-            else if (turno==ColorPieza.WHITE && board.getCellAt(c).getPieza().getColor()==ColorPieza.WHITE){    //comprobar de quien es el turno
+                vacia = true;
+            } else if (turno == ColorPieza.WHITE && board.getCellAt(c).getPieza().getColor() == ColorPieza.WHITE) {    //comprobar de quien es el turno
 
                 nextMove.addAll(board.getCellAt(c).getPieza().getNextMove());       //añade a la lista los movimientos
 
-                if (nextMove.size()>0){         //si la se puede mover, enseña el tablero con las celdas coloreadas
+                if (nextMove.size() > 0) {         //si la se puede mover, enseña el tablero con las celdas coloreadas
                     board.hightLightSelect(c);
-                    vacia=false;
+                    vacia = false;
 //                        tableros();
-                }else{
+                } else {
                     if (board.getCellAt(c).getPieza() != null) //si hay una pieza que no puede moverse
-                        System.out.println(mError()+"Esta pieza no puede moverse, eliga otra.");
+                        System.out.println(mError() + "Esta pieza no puede moverse, eliga otra.");
                 }
 
-            }else if (turno==ColorPieza.BLACK && board.getCellAt(c).getPieza().getColor()==ColorPieza.BLACK){
+            } else if (turno == ColorPieza.BLACK && board.getCellAt(c).getPieza().getColor() == ColorPieza.BLACK) {
 
                 nextMove.addAll(board.getCellAt(c).getPieza().getNextMove());
 
-                if (nextMove.size()>0){
+                if (nextMove.size() > 0) {
                     board.hightLightSelect(c);
-                    vacia=false;
+                    vacia = false;
 //                        tableros();
-                }else{
+                } else {
                     if (board.getCellAt(c).getPieza() != null)
-                        System.out.println(mError()+"Esta pieza no puede moverse, eliga otra.");
+                        System.out.println(mError() + "Esta pieza no puede moverse, eliga otra.");
                 }
 
-            }else
-                System.out.println(mError()+"No puedes mover las piezas del ribal");
+            } else
+                System.out.println(mError() + "No puedes mover las piezas del ribal");
 
-        }while (nextMove.size()==0 || vacia);
-        eligeNextMove(c,nextMove);
+        } while (nextMove.size() == 0 || vacia);
+        eligeNextMove(c, nextMove);
 
     }
 
     /**
      * Elige a que coordenada va a mover la pieza
-     * @param c coordenada en la que esta tu celda
+     *
+     * @param c        coordenada en la que esta tu celda
      * @param nextMove
      */
     public void eligeNextMove(Coordenada c, List<Coordenada> nextMove) {
-        System.out.println("Elija donde desea mover su pieza de " + c  );
+        System.out.println("Elija donde desea mover su pieza de " + c);
         board.hightLight(board.getCellAt(c).getPieza().getNextMove());  //Muestra de otro color las celdas a las que podemos movernos
         tableros();
         char y;                                     //Iniciamos variables
         int x;                                      //Iniciamos variables
         Coordenada newC;                            //Iniciamos variables
-        Pieza pieza=board.getCellAt(c).getPieza();  //Cojemos la pieza
+        Pieza pieza = board.getCellAt(c).getPieza();  //Cojemos la pieza
         do {                                    //Repite hasta *
-            y=eligeLetraY();
-            x=eligeNumX();
-            newC=new Coordenada(y,x);               //Iniciamos la variable de cordenada
-            if (comparaCoor(newC,nextMove)) {       //Si la cordenada a la que quiere mover es valida:
+            y = eligeLetraY();
+            x = eligeNumX();
+            newC = new Coordenada(y, x);               //Iniciamos la variable de cordenada
+            if (comparaCoor(newC, nextMove)) {       //Si la cordenada a la que quiere mover es valida:
 //                System.out.println("OK");           //Mensaje de correcto
-                historialDeMov.add(new Movimiento(pieza.getChessType(),c,newC));    //añade un movimiento al historial
+                historialDeMov.add(new Movimiento(pieza.getChessType(), c, newC));    //añade un movimiento al historial
 
-                if (board.getCellAt(newC).getPieza()!=null)
+                if (board.getCellAt(newC).getPieza() != null)
                     updateStore(newC);
 
 
-
                 pieza.moveTo(newC);                 //La pieza se mueve
-            }else{
-                System.out.println(mError()+"La celda elegida no está permitida pruebe con estas:");     //Mensaje de error
+            } else {
+                System.out.println(mError() + "La celda elegida no está permitida pruebe con estas:");     //Mensaje de error
                 System.out.print(nextMove);         //Muestra posibles coordenadas donde moverse
                 System.out.println();
                 System.out.println("----------------------------------------------------");
             }
-        }while (!comparaCoor(newC,nextMove));    //* que pueda moverse
+        } while (!comparaCoor(newC, nextMove));    //* que pueda moverse
         board.resetColorBoard();
         tableros();
-        turno=turno.next();
+        turno = turno.next();
     }
 
     /**
@@ -165,8 +164,8 @@ public class Game {
      * combinar el que no hi hasca rey en el de caada ronda que diga si vols ixir
      *          y puc dirli algo del jaque mate
      *  agafar diferents opcions de final y tornar una
-     *
-     *  Si es false no se acaba
+     * <p>
+     * Si es false no se acaba
      */
     public boolean finDelJuego() {
         System.out.println("FIN DEL JUEGO");
@@ -178,80 +177,84 @@ public class Game {
     /**
      * Electores
      */
-    public char eligeLetraY(){
-        Scanner sc=new Scanner(System.in);
+    public char eligeLetraY() {
+        Scanner sc = new Scanner(System.in);
         char y;
         do {
             System.out.println(" - Selecciona una la coordena horizontal [A-H]");
-            y=sc.next().toUpperCase(Locale.ROOT).trim().charAt(0);
-            if (y<'A' ||  y>'H'){ //y!='A' || y!='B' || y!='C' || y!='D' || y!='E' || y!='F' || y!='G' || y!='H'
-                System.out.println(mError()+"Parametro no valido, vuelva a intentarlo");
+            y = sc.next().toUpperCase(Locale.ROOT).trim().charAt(0);
+            if (y < 'A' || y > 'H') { //y!='A' || y!='B' || y!='C' || y!='D' || y!='E' || y!='F' || y!='G' || y!='H'
+                System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
                 System.out.println("Parametros permitidos: 'A','B','C','D','E','F','G','H'");
             }
-        }while(y<'A' ||  y>'H');
+        } while (y < 'A' || y > 'H');
 
         return y;
     }
-    public int eligeNumX(){
-        Scanner sc=new Scanner(System.in);
+
+    public int eligeNumX() {
+        Scanner sc = new Scanner(System.in);
         char x;
         do {
             System.out.println(" - Selecciona una la coordena vertical [1-8]");
-            x=sc.next().trim().charAt(0);
-            if (x<'1' ||  x>'8'){
-                System.out.println(mError()+"Parametro no valido, vuelva a intentarlo");
+            x = sc.next().trim().charAt(0);
+            if (x < '1' || x > '8') {
+                System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
                 System.out.println("Parametros permitidos: '1','2','3','4','5','6','7','8'");
             }
-        }while(x<'1' ||  x>'8');
-        int xx= x;
-        return xx-48;
+        } while (x < '1' || x > '8');
+        int xx = x;
+        return xx - 48;
     }
 
-    public String getTurno(){
-        String str="";
-        if (turno==ColorPieza.WHITE)
-            str+="Jugador '" + whitePlayer + "' de las piezas blancas";
+    public String getTurno() {
+        String str = "";
+        if (turno == ColorPieza.WHITE)
+            str += "Jugador '" + whitePlayer + "' de las piezas blancas";
         else
-            str+="Jugador '" + blackPlayer + "' de las piezas negras";
+            str += "Jugador '" + blackPlayer + "' de las piezas negras";
         return str;
     }
-    public String mError(){
+
+    public String mError() {
         return "MENSAJE DE ERROR: ";
     }
+
     public boolean comparaCoor(Coordenada c, List<Coordenada> nextMove) {
-        boolean toReturn=false;
-        for (int i=0;i<nextMove.size();i++){
+        boolean toReturn = false;
+        for (int i = 0; i < nextMove.size(); i++) {
             if (c.equals(nextMove.get(i)))
-                toReturn= true;
+                toReturn = true;
         }
         return toReturn;
     }
 
     /**
      * TODO: millorar el codigo e implemetar lo de guardar partida
+     *
      * @return
      */
-    public boolean seguirJugando(){
-        Scanner sc=new Scanner(System.in);
+    public boolean seguirJugando() {
+        Scanner sc = new Scanner(System.in);
         char option1;
         char option2;
-        boolean salir=false;//no salir
+        boolean salir = false;//no salir
 
         do {
             System.out.println(getTurno() + ", quiere seguir jugando? [1=Si | 2=No]");
-            option1= sc.nextLine().charAt(0);
+            option1 = sc.nextLine().charAt(0);
 
-            if (option1!='1' && option1!='2') {
-                System.out.println(mError()+"Parametro no valido, vuelva a intentarlo");
+            if (option1 != '1' && option1 != '2') {
+                System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
                 System.out.println("Parametros permitidos: '1'='Si', '2'='No'");
             }
 
-        }while (option1!='1' && option1!='2');
+        } while (option1 != '1' && option1 != '2');
 
-        if (option1=='1')
-            salir= false;//no salir
+        if (option1 == '1')
+            salir = false;//no salir
 
-        else{
+        else {
             do {
                 System.out.println("¿Quiere dejar de jugar?");
                 System.out.println(" - 1.- Salir sin guardar");
@@ -259,28 +262,27 @@ public class Game {
                 System.out.println(" - 3.- Cancelar");
                 System.out.print("Selecciona una de esta opciones [Pulse 1, 2 o 3]: ");
 
-                option2= sc.nextLine().charAt(0);
+                option2 = sc.nextLine().charAt(0);
 
-                if (option2<'1' || option2>'3'){
-                    System.out.println(mError()+"Parametro no valido, vuelva a intentarlo");
+                if (option2 < '1' || option2 > '3') {
+                    System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
                     System.out.println("Parametros permitidos: 1 , 2 , 3");
 
-                }else if (option2=='1'){
-                    salir= true;//Si salir
+                } else if (option2 == '1') {
+                    salir = true;//Si salir
 
-                }else if (option2=='2'){
+                } else if (option2 == '2') {
                     //guardar
                     System.out.println("Guardando...");
 
-                    salir= true;//Si salir
+                    salir = true;//Si salir
 
-                }else {
-                    salir= false;
+                } else {
+                    salir = false;
                 }
 
 
-
-            }while (option2<'1' && option2>'3');
+            } while (option2 < '1' && option2 > '3');
         }
 
         return salir;
@@ -289,8 +291,8 @@ public class Game {
     /**
      * TODO: millorar el codigo e implemetar lo de cargar partida
      */
-    public void antesDEmpezar(){
-        Scanner sc=new Scanner(System.in);
+    public void antesDEmpezar() {
+        Scanner sc = new Scanner(System.in);
         char option;
 
         System.out.println("BIENVENIDO");
@@ -304,87 +306,96 @@ public class Game {
             System.out.println(" - 3.- Jugar en linea");
             System.out.print("Selecciona una de esta opciones [Pulse 1, 2 o 3]");
 
-            option= sc.nextLine().charAt(0);
+            option = sc.nextLine().charAt(0);
 
-            if (option<'1' || option>'3') {
+            if (option < '1' || option > '3') {
                 System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
                 System.out.println("Parametros permitidos: 1 , 2 o , 3'");
-            }else if (option=='1'){
+            } else if (option == '1') {
                 start();
 
-            }else if (option=='2'){
+            } else if (option == '2') {
                 System.out.println("Cargando...");
 
                 //cargar partida
 
 
-            }else {
+            } else {
                 System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
             }
 
-        }while (option<'1' || option>'3');
+        } while (option < '1' || option > '3');
     }
 
     /**
      * Cada ronda se pregunta que hacer
+     *
      * @return si seguimos jugando
      */
-    public boolean cadaRonda(){
-        Scanner sc=new Scanner(System.in);
+    public boolean cadaRonda() {
+        Scanner sc = new Scanner(System.in);
         char option;
-        boolean salir=false;
+        boolean salir = false;
 
-        System.out.println();
-        System.out.println("-----------------------------------");
-        System.out.println();
+        do {
+            System.out.println();
+            System.out.println("-----------------------------------");
 
-        if (board.estaEnJaque(ColorPieza.WHITE)){
-            System.out.println("    ¡¡JAQUE!!");
-            System.out.println(" + El rey blanco está en apuros");
-        }
-        if (board.estaEnJaque(ColorPieza.BLACK)){
-            System.out.println("    ¡¡JAQUE!!");
-            System.out.println(" + El rey negro está en apuros + ");
-        }
 
-//        if (hayReyes()){
-            do {
-                System.out.println(getTurno() + " que desea hacer??");
-                System.out.println(" - 1.- Mover una ficha");
-                System.out.println(" - 2.- Ver ultimos 5 movimientos");
-                System.out.println(" - 3.- Ver movimientos realizados");
-                System.out.println(" - 4.- Salir");
-                System.out.print("Selecciona una de esta opciones [Pulse 1, 2, 3 o 4]: ");
+            if (board.estaEnJaque(ColorPieza.WHITE)) {
+                System.out.println(" +            ATENCION            + ");
+                System.out.println("              ¡¡JAQUE!!             ");
+                System.out.println(" +  El rey blanco está en apuros  + ");
+                System.out.println("-----------------------------------");
 
-                option= sc.next().charAt(0);
+            }
 
-                if (option<'1' || option>'5') {
-                    System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
-                    System.out.println("Parametros permitidos: 1 , 2 , 3 , 4");
-                }else if (option=='1'){
-                    eligeCoordena(turno);
+            if (board.estaEnJaque(ColorPieza.BLACK)) {
+                System.out.println(" +            ATENCION            + ");
+                System.out.println("              ¡¡JAQUE!!             ");
+                System.out.println(" +   El rey negro está en apuros  + ");
+                System.out.println("-----------------------------------");
 
-                }else if (option=='2'){
-                    System.out.println(historialDeMov.showLast5());
+            }
 
-                }else if (option=='3'){
-                    getHistorial();
 
-                }else if (option=='4'){
-                    salir=seguirJugando();
+            System.out.println();
+            System.out.println(getTurno() + " que desea hacer??");
+            System.out.println(" - 1.- Mover una ficha");
+            System.out.println(" - 2.- Ver ultimos 5 movimientos");
+            System.out.println(" - 3.- Ver movimientos realizados");
+            System.out.println(" - 4.- Salir");
+            System.out.print("Selecciona una de esta opciones [Pulse 1, 2, 3 o 4]: ");
+            System.out.println();
 
-                }else if (option=='5') { //esto es porque suelo darle mucho al 5 para verlo
-                    System.out.println(historialDeMov.showLast5());
+            option = sc.next().charAt(0);
 
-                }else {
-                    System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
-                }
+            if (option < '1' || option > '5') {
+                System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
+                System.out.println("Parametros permitidos: 1 , 2 , 3 , 4");
+            } else if (option == '1') {
+                eligeCoordena(turno);
 
-                if (!hayReyes())
-                    salir=true;
+            } else if (option == '2') {
+                System.out.println(historialDeMov.showLast5());
 
-            }while (option<'1' || option>'5' || !salir);
-//        }
+            } else if (option == '3') {
+                getHistorial();
+
+            } else if (option == '4') {
+                salir = seguirJugando();
+
+            } else if (option == '5') { //esto es porque suelo darle mucho al 5 para verlo
+                System.out.println(historialDeMov.showLast5());
+
+            } else {
+                System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
+            }
+
+            if (!hayReyes())
+                salir = true;
+
+        } while (option < '1' || option > '5' || !salir);
 
         return salir;
     }
@@ -392,9 +403,9 @@ public class Game {
     /**
      * Muestra el tablero y los contadores
      */
-    public void tableros(){
+    public void tableros() {
         System.out.println();
-        if (turno==ColorPieza.WHITE)
+        if (turno == ColorPieza.WHITE)
             Screen.show(board);
         else
             Screen.showBlackP(board);
@@ -402,27 +413,19 @@ public class Game {
         System.out.println();
         Screen.showDeletedPiece(board.getStore4Deleted());
         System.out.println();
-
-        System.out.println();
-        System.out.println("hay reyes:" + hayReyes());
-        System.out.println("hayblanco?: "+hayReyBlanco());
-        System.out.println("haynegroo?: "+hayReyNegro());
-        System.out.println();
-
-
         System.out.println();
 
     }
 
     /**
-     * TODO esto no va
-     * * @return
+     * Comprueba si estan los dos reyes
+     * @return
      */
-    public boolean hayReyes(){
+    public boolean hayReyes() {
         boolean hayRey = false; //asi no hi hauria rey
 
         if (hayReyBlanco() && hayReyNegro())
-            hayRey=true;    //esto es que hi ha reis
+            hayRey = true;    //esto es que hi ha reis
 
         return hayRey;
     }
@@ -444,8 +447,8 @@ public class Game {
     /**
      * Seleccionar y mostrar historial
      */
-    public void getHistorial(){
-        Scanner sc=new Scanner(System.in);
+    public void getHistorial() {
+        Scanner sc = new Scanner(System.in);
         char option;
 
         System.out.println();
@@ -461,40 +464,40 @@ public class Game {
             System.out.println(" - 5.- Salir");
             System.out.print("Selecciona una de esta opciones [Pulse 1, 2, 3, 4 o 5]: ");
 
-            option= sc.nextLine().charAt(0);
+            option = sc.nextLine().charAt(0);
 
-            if (option<'1' || option>'4') {
+            if (option < '1' || option > '4') {
                 System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
                 System.out.println("Parametros permitidos: 1 , 2 , 3 , 4 , 5");
-            }else if (option=='1'){
+            } else if (option == '1') {
                 System.out.println(historialDeMov.showAllMov());
-            }else if (option=='2'){
+            } else if (option == '2') {
                 System.out.println(historialDeMov.showLastOne());
 
-            }else if (option=='3'){
+            } else if (option == '3') {
                 System.out.println(historialDeMov.showLast5());
 
-            }else if (option=='4'){
+            } else if (option == '4') {
                 int x;
                 do {
                     System.out.println("¿¿Especifica cuantos movimientos quieres ver??");
-                    x=sc.nextInt();
-                    if (x<0)
+                    x = sc.nextInt();
+                    if (x < 0)
                         System.out.println("El numero tiene que ser mayor de 0");
-                }while (x<0);
+                } while (x < 0);
                 System.out.println(historialDeMov.showX(x));
 
-            }else if (option=='5'){
+            } else if (option == '5') {
                 cadaRonda();
 
-            }else {
+            } else {
                 System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
             }
 
-        }while (option<'1' || option>'5');
+        } while (option < '1' || option > '5');
     }
 
-    public void updateStore(Coordenada c){
+    public void updateStore(Coordenada c) {
         board.getStore4Deleted().add(board.getCellAt(c).getPieza());
         board.getStore4InBoard().remove(board.getCellAt(c).getPieza());
     }
@@ -515,10 +518,10 @@ public class Game {
         return historialDeMov;
     }
 
-    public boolean guardarPartida(){
-        try( ObjectOutputStream oos = new ObjectOutputStream(
+    public boolean guardarPartida() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(
-                        new FileOutputStream("gameSave")))){
+                        new FileOutputStream("gameSave")))) {
 
             Game g = new Game();
             oos.writeObject(g);
@@ -529,9 +532,9 @@ public class Game {
             e.printStackTrace();
         }
 
-        try( ObjectInputStream ois = new ObjectInputStream(
+        try (ObjectInputStream ois = new ObjectInputStream(
                 new BufferedInputStream(
-                        new FileInputStream("gameSave")))){
+                        new FileInputStream("gameSave")))) {
 
             Game g = (Game) ois.readObject();
             System.out.println(g);

@@ -98,4 +98,22 @@ public class Screen {
                         && c.getPieza().getChessType() == cT)
                 .count();
     }
+
+    public static String mensageFinal(Game g){
+        String msg="";
+        if (g.hayReyBlanco() && !g.hayReyNegro())
+            msg+=colorize( g.getTurno() + " ha GANADO",
+                    Celda.ColorCelda.WHITE_Cell.getAttribute(),
+                    Attribute.TEXT_COLOR(0,0,0));
+        else if (g.hayReyNegro() && !g.hayReyBlanco())
+            msg+=colorize( g.getTurno() + " ha GANADO",
+                    Celda.ColorCelda.BLACK_Cell.getAttribute(),
+                    Attribute.TEXT_COLOR(255,255,255));
+        else
+            msg+=colorize("Ha habido un error",
+                    Celda.ColorCelda.HIGHLIGHT_KILL_WHITE.getAttribute(),
+                    Attribute.TEXT_COLOR(0,0,0));
+
+        return msg;
+    }
 }
