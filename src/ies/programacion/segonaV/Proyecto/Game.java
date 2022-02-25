@@ -379,8 +379,8 @@ public class Game {
                     System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
                 }
 
-                if (!hayReyes())
-                    salir=true;
+//                if (!hayReyes())
+//                    salir=true;
 
             }while (option<'1' || option>'5' || !salir);
         }
@@ -402,8 +402,11 @@ public class Game {
         Screen.showDeletedPiece(board.getStore4Deleted());
         System.out.println();
 
-        System.out.println("blanc   " + board.estaEnJaque(ColorPieza.WHITE));
-        System.out.println("negre   " + board.estaEnJaque(ColorPieza.BLACK));
+        System.out.println("blancJaque?   " + board.estaEnJaque(ColorPieza.WHITE));
+        System.out.println("negreJaque?   " + board.estaEnJaque(ColorPieza.BLACK));
+        System.out.println();
+        System.out.println(board.getBlackPiezas().get(7).getChessType().toString().equals(ChessType.B_king.toString()));
+        System.out.println(board.getBlackPiezas().get(10).getChessType().toString().equals(ChessType.W_king.toString()));
 
         System.out.println();
 

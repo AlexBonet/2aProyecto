@@ -41,7 +41,10 @@ public class MoveList {
     }
 
     public String showLastOne(){
-        return listaMovimientos.get(listaMovimientos.size()-1).toString();
+        if (listaMovimientos.size()==0)
+            return " + No hay movimientos";
+        else
+            return listaMovimientos.get(listaMovimientos.size()-1).toString();
     }
 
     public String showX(int x){
