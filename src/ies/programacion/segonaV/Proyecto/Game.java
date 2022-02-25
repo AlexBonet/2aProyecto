@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 /**
  * @author Alex Bonet
- * TODO JAQUE
+ * TODO JAQUE, no muestra mensaje de jaque (podria pintar de color la celda de algo)
  * TODO mirar de posar opcions de guardar y cargar partida
  * TODO Que si la pesa soles te un moviment que el faxa nomes elegirla
  */
@@ -339,14 +339,15 @@ public class Game {
         System.out.println();
 
         if (board.estaEnJaque(ColorPieza.WHITE)){
-            System.out.println("¡¡JAQUE!!");
-            System.out.println("El rey blanco está en apuros");
-        }else if (board.estaEnJaque(ColorPieza.BLACK)){
-            System.out.println("¡¡JAQUE!!");
-            System.out.println("El rey negro está en apuros");
+            System.out.println("    ¡¡JAQUE!!");
+            System.out.println(" + El rey blanco está en apuros");
+        }
+        if (board.estaEnJaque(ColorPieza.BLACK)){
+            System.out.println("    ¡¡JAQUE!!");
+            System.out.println(" + El rey negro está en apuros + ");
         }
 
-        if (hayReyes()){
+//        if (hayReyes()){
             do {
                 System.out.println(getTurno() + " que desea hacer??");
                 System.out.println(" - 1.- Mover una ficha");
@@ -379,11 +380,11 @@ public class Game {
                     System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
                 }
 
-//                if (!hayReyes())
-//                    salir=true;
+                if (!hayReyes())
+                    salir=true;
 
             }while (option<'1' || option>'5' || !salir);
-        }
+//        }
 
         return salir;
     }
@@ -402,28 +403,42 @@ public class Game {
         Screen.showDeletedPiece(board.getStore4Deleted());
         System.out.println();
 
-        System.out.println("blancJaque?   " + board.estaEnJaque(ColorPieza.WHITE));
-        System.out.println("negreJaque?   " + board.estaEnJaque(ColorPieza.BLACK));
         System.out.println();
-        System.out.println(board.getBlackPiezas().get(7).getChessType().toString().equals(ChessType.B_king.toString()));
-        System.out.println(board.getBlackPiezas().get(10).getChessType().toString().equals(ChessType.W_king.toString()));
+        System.out.println("hay reyes:" + hayReyes());
+        System.out.println("hayblanco?: "+hayReyBlanco());
+        System.out.println("haynegroo?: "+hayReyNegro());
+        System.out.println();
+
 
         System.out.println();
 
     }
 
     /**
-     * TODO
+     * TODO esto no va
      * * @return
      */
     public boolean hayReyes(){
         boolean hayRey = false; //asi no hi hauria rey
 
-        if (board.getBlackPiezas().get(7).getChessType().toString().equals(ChessType.B_king.toString()) &&
-                board.getWhitePiezas().get(10).getChessType().toString().equals(ChessType.W_king.toString()))
+        if (hayReyBlanco() && hayReyNegro())
             hayRey=true;    //esto es que hi ha reis
 
         return hayRey;
+    }
+
+    public boolean hayReyBlanco() {
+        if (board.getStore4Deleted().count(ChessType.W_king) == 1)
+            return false;
+        else
+            return true;
+    }
+
+    public boolean hayReyNegro() {
+        if (board.getStore4Deleted().count(ChessType.B_king) == 1)
+            return false;
+        else
+            return true;
     }
 
     /**

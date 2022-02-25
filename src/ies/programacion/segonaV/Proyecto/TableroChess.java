@@ -177,14 +177,14 @@ public class TableroChess {
 
     /**
      * Detectar jaque
-     * @param cp color de la pieza ribal
+     * @param color color de la pieza ribal
      * @return si el rei esta o no en jaque
      */
-    public boolean estaEnJaque(ColorPieza cp){
+    public boolean estaEnJaque(ColorPieza color){
 
         Set<Coordenada> piezasCoords = getCeldas().stream()
                 .filter(c -> c.getPieza() != null
-                        && c.getPieza().getColor() == cp.next())
+                        && c.getPieza().getColor() == color.next())
                 .map(c-> c.getPieza())
                 .flatMap(pieza -> pieza.getNextMove()
                         .stream())
@@ -192,18 +192,18 @@ public class TableroChess {
 
         Optional<Coordenada> king;
 
-        if(cp == ColorPieza.BLACK){
+        if(color == ColorPieza.BLACK){
 
             king = getCeldas().stream()
                     .filter(c -> c.getPieza() != null
-                            && c.getPieza().getColor() == cp
+                            && c.getPieza().getColor() == color
                             && c.getPieza().getChessType() == ChessType.B_king)
                     .map(c -> c.getCoordenada()).findFirst();
         }else{
 
             king = getCeldas().stream()
                     .filter(c -> c.getPieza() != null
-                            && c.getPieza().getColor() == cp
+                            && c.getPieza().getColor() == color
                             && c.getPieza().getChessType() == ChessType.W_king)
                     .map(c -> c.getCoordenada()).findFirst();
         }
