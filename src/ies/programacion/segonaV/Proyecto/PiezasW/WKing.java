@@ -10,5 +10,9 @@ public class WKing extends MKing {
         place();
     }
 
+//    @Override
+//    public Celda getCellKing() {
+//        return celda;
+//    }
 }
 

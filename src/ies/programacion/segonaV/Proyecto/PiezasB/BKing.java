@@ -9,5 +9,10 @@ public class BKing extends MKing {
         super(cell, ChessType.B_king);
         place();
     }
+
+//    @Override
+//    public Celda getCellKing() {
+//        return celda;
+//    }
 }
 

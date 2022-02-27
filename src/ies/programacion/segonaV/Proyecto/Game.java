@@ -1,6 +1,8 @@
 package ies.programacion.segonaV.Proyecto;
 
 import ies.programacion.segonaV.Proyecto.DynamicStruct.MoveList;
+import ies.programacion.segonaV.Proyecto.PiezasM.MKing;
+import ies.programacion.segonaV.Proyecto.PiezasW.WKing;
 import ies.programacion.segonaV.Proyecto.View.Screen;
 
 import java.io.*;
@@ -160,21 +162,6 @@ public class Game {
     }
 
     /**
-     * TODO, esta es molt bona
-     * combinar el que no hi hasca rey en el de caada ronda que diga si vols ixir
-     *          y puc dirli algo del jaque mate
-     *  agafar diferents opcions de final y tornar una
-     * <p>
-     * Si es false no se acaba
-     */
-    public boolean finDelJuego() {
-        System.out.println("FIN DEL JUEGO");
-        System.out.println("GANADOR: ");
-        System.out.println("GG");
-        return false;
-    }
-
-    /**
      * Electores
      */
     public char eligeLetraY() {
@@ -272,7 +259,11 @@ public class Game {
                     salir = true;//Si salir
 
                 } else if (option2 == '2') {
+                    System.out.println("Pon un nombre a la partida: ");
+                    String fileName=sc.next();
                     //guardar
+                    guardarPartida(fileName);
+
                     System.out.println("Guardando...");
 
                     salir = true;//Si salir
@@ -291,12 +282,11 @@ public class Game {
     /**
      * TODO: millorar el codigo e implemetar lo de cargar partida
      */
-    public void antesDEmpezar() {
+    public void preStart() {
         Scanner sc = new Scanner(System.in);
         char option;
 
-        System.out.println("BIENVENIDO");
-        System.out.println();
+        System.out.println("BIENVENIDO al ajedrez de A");
         System.out.println();
 
         do {
@@ -306,7 +296,7 @@ public class Game {
             System.out.println(" - 3.- Jugar en linea");
             System.out.print("Selecciona una de esta opciones [Pulse 1, 2 o 3]");
 
-            option = sc.nextLine().charAt(0);
+            option = sc.next().charAt(0);
 
             if (option < '1' || option > '3') {
                 System.out.println(mError() + "Parametro no valido, vuelva a intentarlo");
@@ -315,16 +305,18 @@ public class Game {
                 start();
 
             } else if (option == '2') {
-                System.out.println("Cargando...");
+                System.out.println(" - Escriba el nombre de la partida: ");
+                String fileName=sc.next();
+                cargarPartida(fileName);
 
                 //cargar partida
 
-
+                System.out.println("Cargando...");
             } else {
                 System.out.println(mError() + "Esta opcion aún no esta disponible, seleccione otra de las opciones");
             }
 
-        } while (option < '1' || option > '3');
+        } while (option < '1' || option > '2');
     }
 
     /**
@@ -505,6 +497,8 @@ public class Game {
         return board;
     }
 
+    public ColorPieza getTurn(){return turno;}
+
     public String getBlackPlayer() {
         return blackPlayer;
     }
@@ -517,26 +511,33 @@ public class Game {
         return historialDeMov;
     }
 
-    public boolean guardarPartida() {
+    public void guardarPartida(String fileName) {
+//        if (nameStr.length()==0)
+
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(
-                        new FileOutputStream("gameSave")))) {
+                        new FileOutputStream(fileName)))) {
 
-            Game g = new Game();
-            oos.writeObject(g);
+            oos.writeObject(this);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public Game cargarPartida(String fileName){
+        Game g=null;
         try (ObjectInputStream ois = new ObjectInputStream(
                 new BufferedInputStream(
-                        new FileInputStream("gameSave")))) {
+                        new FileInputStream(fileName)))) {
 
-            Game g = (Game) ois.readObject();
-            System.out.println(g);
+            g = (Game) ois.readObject();
+            board=g.board;
+            whitePlayer=g.whitePlayer;
+            blackPlayer=g.blackPlayer;
+            turno=g.turno;
+            historialDeMov=g.getHistorialDeMov();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -544,6 +545,6 @@ public class Game {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        return true;
+        return g;
     }
 }

@@ -153,16 +153,16 @@ public class TableroChess {
      * idea de que pinte de color la celda del rey cuando esté en jaque
      */
     public void hightLightEnJaque(){
-        List<Celda> list=new LinkedList<>(celdas.values());
-        Iterator<Celda> iterator = list.listIterator();
-        while (iterator.hasNext()){
-            if(iterator.next().getPieza().getChessType()==ChessType.W_king)
-                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
-        }
-        while (iterator.hasNext()){
-            if(iterator.next().getPieza().getChessType()==ChessType.B_king)
-                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
-        }
+//        List<Celda> list=new LinkedList<>(celdas.values());
+//        Iterator<Celda> iterator = list.listIterator();
+//        while (iterator.hasNext()){
+//            if(iterator.next().getPieza().getChessType()==ChessType.W_king)
+//                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
+//        }
+//        while (iterator.hasNext()){
+//            if(iterator.next().getPieza().getChessType()==ChessType.B_king)
+//                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
+//        }
     }
 
     public void resetColorBoard(){

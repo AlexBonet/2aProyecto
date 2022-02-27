@@ -60,4 +60,6 @@ public abstract class MKing  extends Pieza {
         return nextMovements;
     }
 
+//    public abstract Celda getCellKing();
+
 }

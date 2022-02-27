@@ -111,7 +111,7 @@ public class Screen {
                     Celda.ColorCelda.WHITE_Cell.getAttribute(),
                     Attribute.TEXT_COLOR(0,0,0));
         else
-            msg+=colorize("  FIN DE LA PARTIDA: ALGUN JUGADOR HA AVANDONADO  ",
+            msg+=colorize("  FIN DE LA PARTIDA: ALGUN JUGADOR HA ABANDONADO  ",
                     Celda.ColorCelda.HIGHLIGHT_King_JAQUE.getAttribute(),
                     Attribute.TEXT_COLOR(0,0,0));
 
