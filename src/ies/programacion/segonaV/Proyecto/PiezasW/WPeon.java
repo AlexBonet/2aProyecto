@@ -7,6 +7,9 @@ import ies.programacion.segonaV.Proyecto.PiezasM.MPeon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Peón blanco
+ */
 public class WPeon extends MPeon {
     public WPeon(Celda cell) {
         super(cell, ChessType.W_peon);

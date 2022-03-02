@@ -8,20 +8,18 @@ import ies.programacion.segonaV.Proyecto.PiezasB.BQueen;
 import ies.programacion.segonaV.Proyecto.PiezasW.WQueen;
 
 /**
- * @override
- * bolean moveTO(cordenada c){
- * super.moveTo(c);
- * if(c.getNumbres==1 || ==8)
- *     createReina();
- *
- * protect abstract void createQueen();
+ * Clase padre para el peón
  */
-
 public abstract class MPeon  extends Pieza{
     public MPeon(Celda cell, ChessType tipo) {
         super(cell, tipo);
     }
-    
+
+    /**
+     * Cambiar el peon a Reina
+     * @param c
+     * @return
+     */
     public boolean moveTo(Coordenada c){
         super.moveTo(c);
         if (c.getNum()==1 || c.getNum()==8){
@@ -30,7 +28,10 @@ public abstract class MPeon  extends Pieza{
         }else 
             return false;
     }
-    
+
+    /**
+     * Metodo para crear una reina
+     */
     protected abstract void createReina();
 
 

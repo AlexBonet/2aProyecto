@@ -6,6 +6,9 @@ import ies.programacion.segonaV.Proyecto.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase padre para el alfil
+ */
 public abstract class MAlfil extends Pieza {
     public MAlfil(Celda cell, ChessType tipo) {
         super(cell, tipo);
@@ -16,6 +19,11 @@ public abstract class MAlfil extends Pieza {
         return getMovAsAlfil(this);
 
     }
+
+    /**
+     * Obtener los siguientes movimientos
+     * @return lista con los posibles siguientes movimientos
+     */
     public static List<Coordenada> getMovAsAlfil(Pieza p){
         List<Coordenada> nextMovements =  new ArrayList<>();
         TableroChess board =p.getCelda().getTablero();
@@ -62,6 +70,12 @@ public abstract class MAlfil extends Pieza {
         return nextMovements;
     }
 
+    /**
+     * Comprueba que es lo que hay en la la coordenada
+     * @param aux coordenada
+     * @param p pieza
+     * @return true si puede, false si no puede
+     */
     public static boolean canMoveTo(Coordenada aux, Pieza p){
         TableroChess board = p.getCelda().getTablero();
         return estaLibre(aux,p) || esRival(aux,p);

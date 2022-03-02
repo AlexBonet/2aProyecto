@@ -4,6 +4,9 @@ import ies.programacion.segonaV.Proyecto.Celda;
 import ies.programacion.segonaV.Proyecto.ChessType;
 import ies.programacion.segonaV.Proyecto.PiezasM.MQueen;
 
+/**
+ * Reina blanca
+ */
 public class WQueen extends MQueen {
     public WQueen(Celda cell) {
         super(cell, ChessType.W_queen);

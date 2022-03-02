@@ -10,6 +10,10 @@ import ies.programacion.segonaV.Proyecto.TableroChess;
 import static com.diogonunes.jcolor.Ansi.colorize;
 
 public class Screen {
+    /**
+     * Muestra el tablero para que juegue el jugador blanco
+     * @param board tablero que quieres mostrar
+     */
     public static void show(TableroChess board){
 
         String salida="  ";
@@ -34,6 +38,10 @@ public class Screen {
         System.out.println(salida);
     }
 
+    /**
+     * Muestra el tablero para que juegue el jugardor negro
+     * @param board
+     */
     public static void showBlackP(TableroChess board){
 
         String salida="  ";
@@ -58,6 +66,10 @@ public class Screen {
         System.out.println(salida);
     }
 
+    /**
+     * Marcador de las piezas eliminadas
+     * @param store lista que vamos a mostrar
+     */
     public static void showDeletedPiece(IDeletePieceManager store){
         String salida="  | Piezas eliminadas" + "\n";
         salida+="  ";
@@ -75,6 +87,10 @@ public class Screen {
         System.out.println(salida);
     }
 
+    /**
+     * Marcador de las piezas que hay sobre el tablero
+     * @param b tablero con las piezas
+     */
     public static void showPieceOnBoard(TableroChess b) {
         String output = "  | Piezas en el tablero" + "\n";
         output+="  ";
@@ -92,6 +108,12 @@ public class Screen {
         System.out.println(output);
     }
 
+    /**
+     * Muestra el numero de piezas que hay
+     * @param b tablero de referencia
+     * @param cT tipo de las piezas
+     * @return valor numero con cuantas piezas hay en el tablero
+     */
     public static long showPieces(TableroChess b, ChessType cT){
         return b.getCeldas().stream()
                 .filter(c -> c.getPieza() != null
@@ -99,7 +121,12 @@ public class Screen {
                 .count();
     }
 
-    public static String mensageFinal(Game g){
+    /**
+     * Muestra mensajes en el final
+     * @param g partida de referecia
+     * @return mensaje
+     */
+    public static String mensajeFinal(Game g){
         String msg="";
         if (g.hayReyBlanco() && !g.hayReyNegro())
             msg+=colorize( g.getTurno() + " ha GANADO",

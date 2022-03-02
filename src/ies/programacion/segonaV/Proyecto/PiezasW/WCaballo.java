@@ -7,6 +7,9 @@ import ies.programacion.segonaV.Proyecto.PiezasM.MCaballo;
 
 import java.util.Set;
 
+/**
+ * Caballo blanco
+ */
 public class WCaballo extends MCaballo {
     public WCaballo(Celda cell) {
         super(cell, ChessType.W_caballo);

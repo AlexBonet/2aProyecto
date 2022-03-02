@@ -4,6 +4,9 @@ import ies.programacion.segonaV.Proyecto.Celda;
 import ies.programacion.segonaV.Proyecto.ChessType;
 import ies.programacion.segonaV.Proyecto.PiezasM.MAlfil;
 
+/**
+ * Alfil negro
+ */
 public class BAlfil extends MAlfil {
     public BAlfil(Celda cell) {
         super(cell, ChessType.B_alfil);

@@ -4,7 +4,9 @@ import ies.programacion.segonaV.Proyecto.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Clase padre para el caballo
+ */
 public abstract class MCaballo extends Pieza {
     public MCaballo(Celda cell, ChessType tipo) {
         super(cell, tipo);

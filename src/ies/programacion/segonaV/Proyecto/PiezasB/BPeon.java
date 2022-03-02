@@ -7,6 +7,9 @@ import ies.programacion.segonaV.Proyecto.PiezasW.WQueen;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Peon negro
+ */
 public class BPeon extends MPeon {
     public BPeon(Celda cell) {
         super(cell, ChessType.B_peon);

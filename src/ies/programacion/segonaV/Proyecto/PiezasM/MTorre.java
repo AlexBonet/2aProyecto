@@ -4,7 +4,9 @@ import ies.programacion.segonaV.Proyecto.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Clase padre para la torre
+ */
 public abstract class MTorre extends Pieza {
     public MTorre(Celda cell, ChessType tipo) {
         super(cell, tipo);
@@ -15,6 +17,10 @@ public abstract class MTorre extends Pieza {
         return getMovAsTorre(this);
 
     }
+    /**
+     * Obtener los siguientes movimientos
+     * @return lista con los posibles siguientes movimientos
+     */
     public static List<Coordenada> getMovAsTorre(Pieza p){
         List<Coordenada> nextMovements=new ArrayList<>();
         TableroChess board =p.getCelda().getTablero();

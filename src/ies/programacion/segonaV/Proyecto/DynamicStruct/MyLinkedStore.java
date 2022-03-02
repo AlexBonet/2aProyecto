@@ -6,9 +6,15 @@ import ies.programacion.segonaV.Proyecto.Pieza;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Almacen de piezas
+ */
 public class MyLinkedStore implements IDeletePieceManager{
     private List<Pieza> piezas;
 
+    /**
+     * Constructor
+     */
     public MyLinkedStore() {
         this.piezas = new LinkedList<>();
     }

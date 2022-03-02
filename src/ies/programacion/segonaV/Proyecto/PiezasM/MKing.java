@@ -4,7 +4,9 @@ import ies.programacion.segonaV.Proyecto.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Clase padre para el Rey
+ */
 public abstract class MKing  extends Pieza {
     public MKing(Celda cell, ChessType tipo) {
         super(cell, tipo);
@@ -60,6 +62,5 @@ public abstract class MKing  extends Pieza {
         return nextMovements;
     }
 
-//    public abstract Celda getCellKing();
 
 }
