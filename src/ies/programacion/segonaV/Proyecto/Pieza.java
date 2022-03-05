@@ -103,6 +103,11 @@ public abstract class Pieza {
                 board.getCellAt(aux).getPieza().getColor()!=getColor());
     }
 
+    /**
+     * Metodo que mueve una pieza a otra
+     * @param c
+     * @return
+     */
     public boolean moveTo(Coordenada c) {
         if (celda==null || !celda.getTablero().containsCellAt(c))
             return false;

@@ -1,5 +1,8 @@
 package ies.programacion.segonaV.Proyecto;
 
+/**
+ * Enumerador de las piezas que hay
+ */
 public enum ChessType {
     B_king("♚",ColorPieza.BLACK),
     B_queen("♛",ColorPieza.BLACK),

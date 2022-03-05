@@ -11,6 +11,11 @@ public class Celda {
     private Pieza pieza;
     private TableroChess tablero;
 
+    /**
+     * Constructor
+     * @param board tablero en el que está la celda
+     * @param coor coordenada que representa
+     */
     public Celda(TableroChess board,Coordenada coor){
         this.tablero=board;
         this.coordenada=coor;
@@ -22,6 +27,10 @@ public class Celda {
         color=originalColor;
     }
 
+    /**
+     * Formato en el que se ve la celda
+     * @return
+     */
     public String toString(){
         Attribute[] myFormat = new Attribute[]{color.getAttribute()};
         if(pieza!=null)
@@ -30,26 +39,57 @@ public class Celda {
             return colorize("   ",myFormat);
     }
 
+    /**
+     * Obtener la pieza que hay en la celda
+     * @return Pieza
+     */
     public Pieza getPieza() {
         return pieza;
     }
+
+    /**
+     * Obtener el color de la celda
+     * @return
+     */
     public ColorCelda getColor() {
         return color;
     }
+
+    /**
+     * Obtener el tablero de la celda
+     * @return
+     */
     public TableroChess getTablero() {
         return tablero;
     }
+
+    /**
+     * Obtener la coordenada de la celda
+     * @return
+     */
     public Coordenada getCoordenada() {
         return coordenada;
     }
 
+    /**
+     * Cambia la pieza de la celda
+     * @param pieza que tomará la celda
+     */
     public void setPieza(Pieza pieza) {
         this.pieza = pieza;
     }
+
+    /**
+     * Cambia el color de la celda
+     * @param color que tomará la celda
+     */
     public void setColor(ColorCelda color) {
         this.color = color;
     }
 
+    /**
+     * Devuelve al color original la celda
+     */
     public void resetColor(){
         this.setColor(originalColor);
     }

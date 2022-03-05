@@ -9,6 +9,12 @@ public class Movimiento {
     private Coordenada origen;
     private Coordenada destino;
 
+    /**
+     * Constructor
+     * @param chessType
+     * @param origen
+     * @param destino
+     */
     public Movimiento (ChessType chessType, Coordenada origen,Coordenada destino){
         this.numero=last_numero++;
         this.chessType=chessType;
@@ -16,6 +22,10 @@ public class Movimiento {
         this.destino=destino;
     }
 
+    /**
+     * Como se representa cada moviento
+     * @return
+     */
     @Override
     public String toString() {
         return "[" +"#" + numero +" | "
