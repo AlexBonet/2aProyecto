@@ -14,7 +14,7 @@ import java.util.Scanner;
 /**
  * @author Alex Bonet
  * TODO JAQUE, no muestra mensaje de jaque (podria pintar de color la celda de algo)
- * TODO mirar de posar opcions de guardar y cargar partida
+ * TODO mirar cargar partida
  */
 
 public class Game implements Serializable{
@@ -201,6 +201,10 @@ public class Game implements Serializable{
         return str;
     }
 
+    /**
+     * Metodo para indicar mensaje de error
+     * @return string
+     */
     public String mError() {
         return "MENSAJE DE ERROR: ";
     }
@@ -215,8 +219,7 @@ public class Game implements Serializable{
     }
 
     /**
-     * TODO: millorar el codigo e implemetar lo de guardar partida
-     *
+     * Pregunta si vamos a seguir jugando
      * @return
      */
     public boolean seguirJugando() {
@@ -278,7 +281,7 @@ public class Game implements Serializable{
     }
 
     /**
-     * TODO: millorar el codigo e implemetar lo de cargar partida
+     * Menu antes de empezar
      */
     public void preStart() {
         Scanner sc = new Scanner(System.in);
@@ -305,9 +308,10 @@ public class Game implements Serializable{
             } else if (option == '2') {
                 System.out.println(" - Escriba el nombre de la partida: ");
                 String fileName=sc.next();
-                cargarPartida(fileName);
 
                 //cargar partida
+                cargarPartida(fileName);
+                start();
 
                 System.out.println("Cargando...");
             } else {
