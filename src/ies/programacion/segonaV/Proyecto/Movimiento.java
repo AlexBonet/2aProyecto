@@ -1,8 +1,10 @@
 package ies.programacion.segonaV.Proyecto;
 
+import java.io.Serializable;
+
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public class Movimiento {
+public class Movimiento implements Serializable {
     private static  int last_numero=1;
     private int numero;
     private ChessType chessType;

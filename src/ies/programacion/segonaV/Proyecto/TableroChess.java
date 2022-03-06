@@ -7,10 +7,11 @@ import ies.programacion.segonaV.Proyecto.PiezasB.*;
 import ies.programacion.segonaV.Proyecto.PiezasM.MKing;
 import ies.programacion.segonaV.Proyecto.PiezasW.*;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TableroChess {
+public class TableroChess implements Serializable {
     private Map<Coordenada,Celda> celdas;
     private IDeletePieceManager store4InBoard;
     private IDeletePieceManager store4Deleted;
@@ -121,7 +122,7 @@ public class TableroChess {
     }
 
     /**
-     * Colorear
+     * Colorea las celdas en las que se puede mover la celda seleccionada
      */
     public void hightLight(List<Coordenada> cordenadas){
         TableroChess board = this;
@@ -142,6 +143,11 @@ public class TableroChess {
             i++;
         }
     }
+
+    /**
+     * Colorea la celda de la pieza que seleccionas
+     * @param c
+     */
     public void hightLightSelect(Coordenada c){
         if (getCellAt(c).getColor()== Celda.ColorCelda.BLACK_Cell)
             getCellAt(c).setColor(Celda.ColorCelda.HIGHLIGHT_SELECT_BLACK);
@@ -150,21 +156,8 @@ public class TableroChess {
     }
 
     /**
-     * idea de que pinte de color la celda del rey cuando esté en jaque
+     * Metodo para devolver al color original las celdas del tablero
      */
-    public void hightLightEnJaque(){
-//        List<Celda> list=new LinkedList<>(celdas.values());
-//        Iterator<Celda> iterator = list.listIterator();
-//        while (iterator.hasNext()){
-//            if(iterator.next().getPieza().getChessType()==ChessType.W_king)
-//                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
-//        }
-//        while (iterator.hasNext()){
-//            if(iterator.next().getPieza().getChessType()==ChessType.B_king)
-//                getCellAt(iterator.next().getCoordenada()).setColor(Celda.ColorCelda.HIGHLIGHT_King_JAQUE);
-//        }
-    }
-
     public void resetColorBoard(){
         for (Celda celda:celdas.values())
             celda.resetColor();

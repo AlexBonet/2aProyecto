@@ -2,7 +2,9 @@ package ies.programacion.segonaV.Proyecto.DynamicStruct;
 
 import ies.programacion.segonaV.Proyecto.Pieza;
 
-public class Node {
+import java.io.Serializable;
+
+public class Node implements Serializable {
     private Pieza info;
     private Node next;
     private Node prev;

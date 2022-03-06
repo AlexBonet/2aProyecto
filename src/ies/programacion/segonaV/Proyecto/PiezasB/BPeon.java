@@ -4,13 +4,14 @@ import ies.programacion.segonaV.Proyecto.*;
 import ies.programacion.segonaV.Proyecto.PiezasM.MPeon;
 import ies.programacion.segonaV.Proyecto.PiezasW.WQueen;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Peon negro
  */
-public class BPeon extends MPeon {
+public class BPeon extends MPeon implements Serializable {
     public BPeon(Celda cell) {
         super(cell, ChessType.B_peon);
         place();

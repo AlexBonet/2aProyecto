@@ -2,9 +2,11 @@ package ies.programacion.segonaV.Proyecto;
 
 import com.diogonunes.jcolor.Attribute;
 
+import java.io.Serializable;
+
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public class Celda {
+public class Celda implements Serializable {
     private Coordenada coordenada;
     private ColorCelda color;
     private ColorCelda originalColor;

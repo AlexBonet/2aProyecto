@@ -3,7 +3,9 @@ package ies.programacion.segonaV.Proyecto.DynamicStruct;
 import ies.programacion.segonaV.Proyecto.ChessType;
 import ies.programacion.segonaV.Proyecto.Pieza;
 
-public class MyList implements IDeletePieceManager{
+import java.io.Serializable;
+
+public class MyList implements IDeletePieceManager , Serializable {
 
     private Node head;
     private int size;

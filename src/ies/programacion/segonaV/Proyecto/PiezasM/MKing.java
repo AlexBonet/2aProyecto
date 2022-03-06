@@ -2,12 +2,13 @@ package ies.programacion.segonaV.Proyecto.PiezasM;
 
 import ies.programacion.segonaV.Proyecto.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 /**
  * Clase padre para el Rey
  */
-public abstract class MKing  extends Pieza {
+public abstract class MKing extends Pieza implements Serializable {
     public MKing(Celda cell, ChessType tipo) {
         super(cell, tipo);
     }

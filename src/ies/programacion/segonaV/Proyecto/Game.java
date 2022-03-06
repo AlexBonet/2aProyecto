@@ -17,7 +17,7 @@ import java.util.Scanner;
  * TODO mirar de posar opcions de guardar y cargar partida
  */
 
-public class Game {
+public class Game implements Serializable{
     private TableroChess board;
     private String blackPlayer;
     private String whitePlayer;
@@ -510,8 +510,6 @@ public class Game {
     }
 
     public void guardarPartida(String fileName) {
-//        if (nameStr.length()==0)
-
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new BufferedOutputStream(
                         new FileOutputStream(fileName)))) {
@@ -523,26 +521,21 @@ public class Game {
         }
     }
 
-    public Game cargarPartida(String fileName){
-        Game g=null;
+    public void cargarPartida(String fileName){
         try (ObjectInputStream ois = new ObjectInputStream(
                 new BufferedInputStream(
                         new FileInputStream(fileName)))) {
 
-            g = (Game) ois.readObject();
+            Game g = (Game) ois.readObject();
             board=g.board;
             whitePlayer=g.whitePlayer;
             blackPlayer=g.blackPlayer;
             turno=g.turno;
             historialDeMov=g.getHistorialDeMov();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return g;
+
     }
 }

@@ -2,12 +2,13 @@ package ies.programacion.segonaV.Proyecto.PiezasM;
 
 import ies.programacion.segonaV.Proyecto.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 /**
  * Clase padre para la torre
  */
-public abstract class MTorre extends Pieza {
+public abstract class MTorre extends Pieza implements Serializable {
     public MTorre(Celda cell, ChessType tipo) {
         super(cell, tipo);
     }

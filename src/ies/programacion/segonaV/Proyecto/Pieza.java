@@ -2,12 +2,13 @@ package ies.programacion.segonaV.Proyecto;
 
 import com.diogonunes.jcolor.Attribute;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public abstract class Pieza {
+public abstract class Pieza implements Serializable {
     private ChessType chessType;
     protected Celda celda;
 

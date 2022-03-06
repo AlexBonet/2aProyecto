@@ -1,8 +1,9 @@
 package ies.programacion.segonaV.Proyecto;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Coordenada {
+public class Coordenada implements Serializable {
     private char x; //letra
     private int y;  //numero
 

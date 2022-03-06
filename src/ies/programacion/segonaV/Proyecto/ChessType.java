@@ -1,9 +1,11 @@
 package ies.programacion.segonaV.Proyecto;
 
+import java.io.Serializable;
+
 /**
  * Enumerador de las piezas que hay
  */
-public enum ChessType {
+public enum ChessType implements Serializable {
     B_king("♚",ColorPieza.BLACK),
     B_queen("♛",ColorPieza.BLACK),
     B_alfil("♝",ColorPieza.BLACK),

@@ -2,6 +2,7 @@ package ies.programacion.segonaV.Proyecto.DynamicStruct;
 
 import ies.programacion.segonaV.Proyecto.Movimiento;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * Lista de Movimientos
  */
 
-public class MoveList {
+public class MoveList implements Serializable {
 
     List<Movimiento> listaMovimientos;
 

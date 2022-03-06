@@ -7,10 +7,12 @@ import ies.programacion.segonaV.Proyecto.Pieza;
 import ies.programacion.segonaV.Proyecto.PiezasB.BQueen;
 import ies.programacion.segonaV.Proyecto.PiezasW.WQueen;
 
+import java.io.Serializable;
+
 /**
  * Clase padre para el peón
  */
-public abstract class MPeon  extends Pieza{
+public abstract class MPeon extends Pieza implements Serializable {
     public MPeon(Celda cell, ChessType tipo) {
         super(cell, tipo);
     }

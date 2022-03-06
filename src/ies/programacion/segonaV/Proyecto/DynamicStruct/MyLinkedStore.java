@@ -3,13 +3,14 @@ package ies.programacion.segonaV.Proyecto.DynamicStruct;
 import ies.programacion.segonaV.Proyecto.ChessType;
 import ies.programacion.segonaV.Proyecto.Pieza;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Almacen de piezas
  */
-public class MyLinkedStore implements IDeletePieceManager{
+public class MyLinkedStore implements IDeletePieceManager, Serializable {
     private List<Pieza> piezas;
 
     /**

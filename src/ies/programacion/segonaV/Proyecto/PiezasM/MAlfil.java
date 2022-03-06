@@ -3,13 +3,14 @@ package ies.programacion.segonaV.Proyecto.PiezasM;
 import ies.programacion.segonaV.Proyecto.*;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Clase padre para el alfil
  */
-public abstract class MAlfil extends Pieza {
+public abstract class MAlfil extends Pieza implements Serializable {
     public MAlfil(Celda cell, ChessType tipo) {
         super(cell, tipo);
     }
